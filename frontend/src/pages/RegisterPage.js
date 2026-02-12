@@ -9,7 +9,7 @@ const RegisterPage = () => {
   const [form, setForm] = useState({
     tenantName: '',
     subdomain: '',
-    adminName: '',
+    adminFullName: '',
     adminEmail: '',
     adminPassword: '',
     plan: 'free',
@@ -79,8 +79,8 @@ const RegisterPage = () => {
               <input
                 type="text"
                 placeholder="Jane Doe"
-                value={form.adminName}
-                onChange={(e) => setForm({ ...form, adminName: e.target.value })}
+                value={form.adminFullName}
+                onChange={(e) => setForm({ ...form, adminFullName: e.target.value })}
                 required
               />
             </label>

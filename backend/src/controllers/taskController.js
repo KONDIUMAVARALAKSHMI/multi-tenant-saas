@@ -8,20 +8,28 @@ exports.createTask = async (req, res) => {
   const { tenantId } = req.user;
 
   try {
-    // 1. Verify Project belongs to THIS tenant
+    // Quick check: does this project actually belong to this user's company?
     const projectCheck = await db.query('SELECT id FROM projects WHERE id = $1 AND tenant_id = $2', [projectId, tenantId]);
     if (projectCheck.rows.length === 0) {
       return res.status(403).json({ success: false, message: 'Project not found in your organization' });
     }
 
-    // 2. Create Task
+    // If they're assigning someone, make sure that person is in the same company
+    if (assignedTo) {
+      const userCheck = await db.query('SELECT id FROM users WHERE id = $1 AND tenant_id = $2', [assignedTo, tenantId]);
+      if (userCheck.rows.length === 0) {
+        return res.status(400).json({ success: false, message: 'Assigned user not found in your organization' });
+      }
+    }
+
+    // Everything looks good, let's save the task!
     const newTask = await db.query(
       `INSERT INTO tasks (project_id, tenant_id, title, description, assigned_to, priority, due_date) 
        VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
       [projectId, tenantId, title, description, assignedTo, priority, dueDate]
     );
 
-    // 3. Audit Log
+    // Got to log this action so we can track what's happening
     await db.query(
       'INSERT INTO audit_logs (tenant_id, user_id, action, entity_type, entity_id) VALUES ($1, $2, $3, $4, $5)',
       [tenantId, req.user.userId, 'CREATE_TASK', 'task', newTask.rows[0].id]
@@ -73,6 +81,14 @@ exports.updateTask = async (req, res) => {
 
     if (status && !ALLOWED_STATUSES.includes(status)) {
       return res.status(400).json({ success: false, message: 'Invalid status value' });
+    }
+
+    // Verify assignedTo belongs to THIS tenant if provided
+    if (assignedTo) {
+      const userCheck = await db.query('SELECT id FROM users WHERE id = $1 AND tenant_id = $2', [assignedTo, tenantId]);
+      if (userCheck.rows.length === 0) {
+        return res.status(400).json({ success: false, message: 'Assigned user not found in your organization' });
+      }
     }
 
     const fields = [];
@@ -163,7 +179,7 @@ exports.updateTaskStatus = async (req, res) => {
 
 exports.deleteTask = async (req, res) => {
   const { projectId, taskId } = req.params;
-  const { tenantId } = req.user;
+  const { tenantId, userId } = req.user;
 
   try {
     const existing = await db.query('SELECT id, project_id FROM tasks WHERE id = $1 AND tenant_id = $2', [taskId, tenantId]);

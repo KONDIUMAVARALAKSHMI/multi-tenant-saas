@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { updateTask, updateTaskStatus } = require('../controllers/taskController');
+const { updateTask, updateTaskStatus, deleteTask } = require('../controllers/taskController');
 const { authenticate } = require('../middleware/auth');
 
 // All task routes require authentication
@@ -11,5 +11,7 @@ router.use(authenticate);
 // PUT /api/tasks/:taskId
 router.patch('/:taskId/status', updateTaskStatus);
 router.put('/:taskId', updateTask);
+router.delete('/:taskId', deleteTask);
+
 
 module.exports = router;

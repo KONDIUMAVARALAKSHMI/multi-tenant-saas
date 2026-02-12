@@ -11,6 +11,20 @@ During this project, I learned a lot of things that were totally new to me:
 - **RESTful API Design**: I implemented 19 different endpoints and learned how to structure them logically (like nesting tasks under projects).
 - **JWT & RBAC**: Figuring out how to embed the `tenantId` inside a JWT so the backend always knows who is asking for what was a "Eureka!" moment for me.
 - **Docker Compose**: Learning how to spin up a frontend, backend, and database all at once with one command made development so much easier.
+- **Audit Logging**: Implemented an automated logging system that captures every major user action (Create, Update, Delete) for security and accountability.
+
+## 🌟 Cool Features I Built
+I tried to make this project as full-featured as possible:
+1.  **Multi-Tenant Setup**: I made sure each company's data stays in its own private space.
+2.  **Stateless Login**: Used JWTs (JSON Web Tokens) that last for 24 hours.
+3.  **Roles & Permissions**: Built fixed roles for Super Admin, Tenant Admin, and regular users.
+4.  **Plan Limits**: The app automatically counts and stops people if they hit their project or user limit.
+5.  **Easy Dashboard**: A quick look at how many projects and tasks your organization has.
+6.  **Full Project & Task Tracking**: You can create, edit, or delete projects and tasks anytime.
+7.  **Action Logs**: Every big change (like a delete) gets logged in the database so we know what happened.
+8.  **Docker Support**: Made a docker-compose file so you can run the whole system with one click.
+9.  **Health Checks**: Built a small check to verify the database connection is actually working.
+10. **Modern Design**: Used some cool CSS tricks like glassmorphism to make it look smooth.
 
 ## 🛠️ Tech Stack I Chose
 - **Backend**: Node.js & Express (because they're fast and I love JavaScript)

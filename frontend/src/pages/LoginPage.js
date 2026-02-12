@@ -29,15 +29,15 @@ const LoginPage = () => {
     <div className="gradient-bg">
       <div className="auth-card">
         <div className="auth-hero">
-          <p className="eyebrow">Enterprise Ready</p>
-          <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Multi-Tenant Control Plane.</h1>
+          <p className="eyebrow">Student Project</p>
+          <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>My SaaS Platform Dashboard.</h1>
           <p className="subhead" style={{ fontSize: '1.1rem', marginBottom: '2rem' }}>
-            Access your secure, isolated workspace. All data is scoped and protected at the database level.
+            Welcome back! Log in to access your projects. I've built this to keep different organizations separate and secure.
           </p>
           <div className="pill-list" style={{ listStyleType: 'none', padding: 0, display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-            <span className="pill">JWT v2</span>
-            <span className="pill">Postgres Isolation</span>
-            <span className="pill">RBAC Enabled</span>
+            <span className="pill">JWT Login</span>
+            <span className="pill">Database Isolation</span>
+            <span className="pill">User Roles</span>
           </div>
         </div>
 
@@ -67,7 +67,7 @@ const LoginPage = () => {
               />
             </label>
             <label className="field">
-              <span>Master Password</span>
+              <span>Password</span>
               <input
                 type="password"
                 placeholder="••••••••"
@@ -75,7 +75,7 @@ const LoginPage = () => {
                 required
               />
             </label>
-            <button type="submit" className="btn primary" style={{ marginTop: '1rem' }}>Sign In to Workspace</button>
+            <button type="submit" className="btn primary" style={{ marginTop: '1rem' }}>Login</button>
           </form>
 
           <div className="hint" style={{ marginTop: '2rem' }}>

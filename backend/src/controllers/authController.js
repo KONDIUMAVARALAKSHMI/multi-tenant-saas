@@ -1,4 +1,4 @@
-// Handles user authentication and token generation
+// This file handles all the login and signup logic for our platform
 const db = require('../config/db');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -24,14 +24,14 @@ exports.registerTenant = async (req, res) => {
   try {
     await client.query('BEGIN');
 
-    // Prevent duplicate subdomains
+    // We don't want two companies trying to use the same subdomain!
     const existingTenant = await client.query('SELECT id FROM tenants WHERE subdomain = $1', [tenantSubdomain]);
     if (existingTenant.rows.length > 0) {
       await client.query('ROLLBACK');
       return res.status(409).json({ success: false, message: 'Subdomain already taken' });
     }
 
-    // Create tenant
+    // Step 1: Create the company (tenant) entry
     const tenantInsert = await client.query(
       `INSERT INTO tenants (name, subdomain, subscription_plan, max_users, max_projects)
        VALUES ($1, $2, $3, $4, $5)
@@ -40,7 +40,7 @@ exports.registerTenant = async (req, res) => {
     );
     const tenant = tenantInsert.rows[0];
 
-    // Create admin user
+    // Step 2: Create the admin user who is signing up
     const passwordHash = await bcrypt.hash(adminPassword, 10);
     const userInsert = await client.query(
       `INSERT INTO users (tenant_id, email, password_hash, full_name, role)

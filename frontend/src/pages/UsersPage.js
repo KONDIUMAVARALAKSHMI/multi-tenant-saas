@@ -3,7 +3,7 @@ import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
-const API_BASE = process.env.REACT_APP_API_BASE || 'http://localhost:5000';
+const API_BASE = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const UsersPage = () => {
     const [users, setUsers] = useState([]);
@@ -23,7 +23,7 @@ const UsersPage = () => {
     const fetchUsers = async () => {
         setLoading(true);
         try {
-            const res = await axios.get(`${API_BASE}/api/users/${tenantId}/users`, { headers: authHeader() });
+            const res = await axios.get(`${API_BASE}/api/tenants/${tenantId}/users`, { headers: authHeader() });
             setUsers(res.data.data.users);
         } catch (err) {
             console.error(err);
@@ -35,7 +35,7 @@ const UsersPage = () => {
     const handleAddUser = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(`${API_BASE}/api/users/${tenantId}/users`, form, { headers: authHeader() });
+            await axios.post(`${API_BASE}/api/tenants/${tenantId}/users`, form, { headers: authHeader() });
             setForm({ email: '', fullName: '', password: '', role: 'user' });
             fetchUsers();
         } catch (err) {

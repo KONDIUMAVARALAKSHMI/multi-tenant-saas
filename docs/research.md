@@ -1,8 +1,7 @@
-# Research Document: Multi-Tenant SaaS Platform
+# My Research on Multi-Tenant Apps
 
-## Executive Summary
-
-This document presents comprehensive research on multi-tenancy architecture patterns, technology stack selection, security considerations, and scalability strategies for building a production-grade SaaS platform. The research informed the design decisions for a project and task management system supporting multiple organizations with complete data isolation.
+## What this doc is about
+I spent a lot of time looking into how SaaS platforms actually work. This doc covers what I found about keeping data separate for different companies, choosing my tech stack, and making sure everything is secure.
 
 ---
 
@@ -481,16 +480,7 @@ With millions of rows projected, simple `SELECT` statements can become slow. We 
 ---
 
 ## 8. Conclusion
-
-The selected technology stack (Node.js, React, PostgreSQL) with a shared database, shared schema multi-tenancy approach provides the optimal balance of:
-
-- **Cost Efficiency:** Low infrastructure costs enable competitive pricing
-- **Security:** Multiple layers of tenant isolation ensure data privacy
-- **Scalability:** Horizontal scaling supports growth to thousands of tenants
-- **Developer Productivity:** Modern stack enables rapid feature development
-- **Maintainability:** Single schema simplifies updates and maintenance
-
-This architecture is proven in production by successful SaaS companies like Slack, Intercom, and Zendesk, validating its suitability for a project and task management platform.
+After doing all this research, I'm confident that Node.js, React, and PostgreSQL were the best choices for my project. The "Shared Database" approach worked out great because it's fast, cheap, and still keeps data private. It was a big learning curve but totally worth it!
 
 ---
 

@@ -1,12 +1,11 @@
-# Architecture Document
+# My Project Architecture
 
-## 1. System Architecture Overview
-
-The Multi-Tenant SaaS Platform follows a three-tier architecture pattern with clear separation of concerns:
-
-- **Client Layer:** React-based Single Page Application (SPA)
-- **Application Layer:** Node.js/Express REST API with JWT authentication
-- **Data Layer:** PostgreSQL database with strict tenant isolation
+## 1. How the System Works
+I built this app using a "3-layer" setup so everything is nice and organized:
+- **Frontend**: A React app that users see.
+- **Backend**: A Node.js API that does the heavy lifting and keeps data secure.
+- **Database**: A PostgreSQL database where everything is stored.
+- **Tenant Isolation**: My main goal was making sure one company can't see another company's stuff!
 
 ### System Architecture Diagram
 
@@ -524,14 +523,11 @@ Middleware (Auth, RBAC, Tenant Isolation)
 
 ---
 
-## Conclusion
+## Wrap Up
+I'm really happy with how this architecture came together. It's solid, secure, and I learned a ton about:
+- Keeping data isolated between companies.
+- Using JWTs for secure logins.
+- Scaling a system by keeping the backend stateless.
+- Using Docker to make deployment easy.
 
-This architecture provides a solid foundation for a production-grade multi-tenant SaaS platform with:
-
-- ✅ **Scalability:** Horizontal scaling of stateless API servers
-- ✅ **Security:** Multiple layers of tenant isolation and authentication
-- ✅ **Performance:** Optimized database queries and caching strategies
-- ✅ **Maintainability:** Clear separation of concerns and modular design
-- ✅ **Reliability:** Health checks, error handling, and audit logging
-
-The architecture follows industry best practices and is proven in production by successful SaaS companies.
+It's been a great project!
